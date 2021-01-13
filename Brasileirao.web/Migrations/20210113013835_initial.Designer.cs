@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Brasileirao.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210112234740_jogos")]
-    partial class jogos
+    [Migration("20210113013835_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,25 @@ namespace Brasileirao.web.Migrations
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Brasileirao.web.Data.Entities.clubes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Nome_campo");
+
+                    b.Property<string>("cidade");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("clubes");
+                });
 
             modelBuilder.Entity("Brasileirao.web.Data.Entities.Jogos", b =>
                 {

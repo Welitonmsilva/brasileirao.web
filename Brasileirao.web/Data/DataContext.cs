@@ -18,6 +18,10 @@ namespace Brasileirao.web.Data
              
         }
 
+        public DbSet<Brasileirao.web.Data.Entities.clubes> clubes { get; set; }
+
+        
+
 
     }
 }

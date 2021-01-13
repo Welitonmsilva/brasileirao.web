@@ -19,6 +19,25 @@ namespace Brasileirao.web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Brasileirao.web.Data.Entities.clubes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Nome_campo");
+
+                    b.Property<string>("cidade");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("clubes");
+                });
+
             modelBuilder.Entity("Brasileirao.web.Data.Entities.Jogos", b =>
                 {
                     b.Property<int>("Id")

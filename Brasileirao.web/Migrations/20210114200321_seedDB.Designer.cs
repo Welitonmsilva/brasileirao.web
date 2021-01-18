@@ -4,14 +4,16 @@ using Brasileirao.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Brasileirao.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210114200321_seedDB")]
+    partial class seedDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,17 +21,23 @@ namespace Brasileirao.web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Brasileirao.web.Data.Entities.Clube", b =>
+            modelBuilder.Entity("Brasileirao.web.Data.Entities.clubes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Nome_campo");
+
+                    b.Property<string>("cidade");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clubes");
+                    b.ToTable("clubes");
                 });
 
             modelBuilder.Entity("Brasileirao.web.Data.Entities.Jogos", b =>

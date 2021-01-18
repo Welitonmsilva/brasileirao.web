@@ -12,29 +12,29 @@ namespace Brasileirao.web.Controllers
 {
     public class JogosController : Controller
     {
-        private readonly DataContext _context;
+        private IJogoRepository jogorepository;
 
-        public JogosController(DataContext context)
+        public JogosController(IJogoRepository jogoRepository)
         {
-            _context = context;
+            _jogorepository = jogoRepository;
         }
+        
 
         // GET: Jogos
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Jogos.ToListAsync());
+            return View(Jogosrepository.GetJogos());
         }
 
         // GET: Jogos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var jogos = await _context.Jogos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var jogos = _Jogosrepository.GetJogos(id.Value);
             if (jogos == null)
             {
                 return NotFound();
@@ -58,22 +58,22 @@ namespace Brasileirao.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(jogos);
-                await _context.SaveChangesAsync();
+                _Jogosrepository.Addjogos(jogos);
+                await _Jogosrepository.SaveAllAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(jogos);
         }
 
         // GET: Jogos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var jogos = await _context.Jogos.FindAsync(id);
+            var jogos = _Jogosrepository.GetJogos(id.Value);
             if (jogos == null)
             {
                 return NotFound();
@@ -88,21 +88,18 @@ namespace Brasileirao.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Jornadas,Clube,Pontos,Posicao,ImageUrl,ultimoJogo")] Jogos jogos)
         {
-            if (id != jogos.Id)
-            {
-                return NotFound();
-            }
+            
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(jogos);
-                    await _context.SaveChangesAsync();
+                    _Jogosrepository.updateJogos(jogos);
+                    await _Jogosrepository.SaveAllAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JogosExists(jogos.Id))
+                    if (!await  _Jogosrepository.ExistAsync(jogos.Id))
                     {
                         return NotFound();
                     }
@@ -117,15 +114,14 @@ namespace Brasileirao.web.Controllers
         }
 
         // GET: Jogos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var jogos = await _context.Jogos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var jogos = _Jogosrepository.GetJogos(id.Value);
             if (jogos == null)
             {
                 return NotFound();
@@ -139,15 +135,12 @@ namespace Brasileirao.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var jogos = await _context.Jogos.FindAsync(id);
-            _context.Jogos.Remove(jogos);
-            await _context.SaveChangesAsync();
+            var jogos = _Jogosrepository.GetJogos(id);
+            _Jogosrepository.Removejogos(jogos);
+            await _Jogosrepository.SaveAllAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JogosExists(int id)
-        {
-            return _context.Jogos.Any(e => e.Id == id);
-        }
+        
     }
 }

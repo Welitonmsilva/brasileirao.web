@@ -4,7 +4,7 @@ namespace Brasileirao.web.Data.Entities
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    public class Jogos
+    public class Jogos :IEntity
     {
         public int Id { get; set; }
 

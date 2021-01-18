@@ -1,19 +1,15 @@
-﻿using Brasileirao.web.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace Brasileirao.web
 {
+    using Brasileirao.web.Data;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,6 +26,11 @@ namespace Brasileirao.web
             {
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
+            //injetar novos serviço// seedDB tem o ciclo de vida mais curta na aplicação
+            services.AddTransient<SeedDb>();
+            //tem o ciclo de vida durante toda a aplicação
+            services.AddScoped<IJogoRepository, JogoRepository>();
+            services.AddScoped< IclubeRepsositrory, ClubeRepository>();
 
 
 

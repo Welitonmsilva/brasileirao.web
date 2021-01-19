@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Brasileirao.web.Data
 {
-    interface IJogoRepository :IGenericRepository<Jogos>
+   public interface IJogoRepository :IGenericRepository<Jogo>
     {
-        IEnumerable<SelectListItem> GetComboProducts();
+        IEnumerable<SelectListItem> Getjogos();
+        Task SaveAllAsync();
     }
 }

@@ -4,7 +4,7 @@ namespace Brasileirao.web.Data
 {
     using System.Linq;
     using System.Threading.Tasks;
-    internal interface IGenericRepository<T> where T : class
+    public  interface IGenericRepository<T> where T : class
     {
         IQueryable<T> Getall();
 

@@ -1,40 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Brasileirao.web.Data;
+using Brasileirao.web.Data.Entities;
+using Brasileirao.web.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Brasileirao.web.Data;
-using Brasileirao.web.Data.Entities;
 
 namespace Brasileirao.web.Controllers
 {
     public class JogosController : Controller
     {
-        private IJogoRepository jogorepository;
+        private readonly IJogoRepository _Jogorepository;
+        private readonly IUserHelper _userHelper;
 
-        public JogosController(IJogoRepository jogoRepository)
+        public JogosController(IJogoRepository jogoRepository, IUserHelper userHelpers)
         {
-            _jogorepository = jogoRepository;
+            _Jogorepository = jogoRepository;
+            _userHelper = userHelpers;
         }
-        
+
 
         // GET: Jogos
         public IActionResult Index()
         {
-            return View(Jogosrepository.GetJogos());
+            return View(_Jogorepository.Getall()/*.OrderBy(p => p.Clube)*/);
         }
 
         // GET: Jogos/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var jogos = _Jogosrepository.GetJogos(id.Value);
+            var jogos = await  _Jogorepository.GetbyIdAsync(id.Value);
             if (jogos == null)
             {
                 return NotFound();
@@ -54,26 +54,25 @@ namespace Brasileirao.web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Jornadas,Clube,Pontos,Posicao,ImageUrl,ultimoJogo")] Jogos jogos)
+        public async Task<IActionResult> Create([Bind("Id,Jornadas,Clube,Pontos,Posicao,ImageUrl,ultimoJogo")] Jogo jogos)
         {
             if (ModelState.IsValid)
             {
-                _Jogosrepository.Addjogos(jogos);
-                await _Jogosrepository.SaveAllAsync();
+                await _Jogorepository.CreateAsync(jogos);                
                 return RedirectToAction(nameof(Index));
             }
             return View(jogos);
         }
 
         // GET: Jogos/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var jogos = _Jogosrepository.GetJogos(id.Value);
+            var jogos = await _Jogorepository.GetbyIdAsync(id.Value);
             if (jogos == null)
             {
                 return NotFound();
@@ -86,20 +85,20 @@ namespace Brasileirao.web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Jornadas,Clube,Pontos,Posicao,ImageUrl,ultimoJogo")] Jogos jogos)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Jornadas,Clube,Pontos,Posicao,ImageUrl,ultimoJogo")] Jogo jogos)
         {
-            
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _Jogosrepository.updateJogos(jogos);
-                    await _Jogosrepository.SaveAllAsync();
+                    await _Jogorepository.UpdateAsync(jogos);
+                  
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await  _Jogosrepository.ExistAsync(jogos.Id))
+                    if (!await _Jogorepository.ExistsAsync(jogos.Id))
                     {
                         return NotFound();
                     }
@@ -114,14 +113,14 @@ namespace Brasileirao.web.Controllers
         }
 
         // GET: Jogos/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var jogos = _Jogosrepository.GetJogos(id.Value);
+            var jogos = await _Jogorepository.GetbyIdAsync(id.Value);
             if (jogos == null)
             {
                 return NotFound();
@@ -135,12 +134,11 @@ namespace Brasileirao.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var jogos = _Jogosrepository.GetJogos(id);
-            _Jogosrepository.Removejogos(jogos);
-            await _Jogosrepository.SaveAllAsync();
+            var jogos = await _Jogorepository.GetbyIdAsync(id);
+            await _Jogorepository.DeleteAsync(jogos);          
             return RedirectToAction(nameof(Index));
         }
 
-        
+
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Brasileirao.web.Data
 {
-    internal interface IclubeRepsositrory : IGenericRepository<Clube>
+    public interface IclubeRepsositrory : IGenericRepository<Clube>
     {
 
     }

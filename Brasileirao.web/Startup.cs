@@ -2,6 +2,7 @@
 namespace Brasileirao.web
 {
     using Brasileirao.web.Data;
+    using Brasileirao.web.Helpers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -30,7 +31,11 @@ namespace Brasileirao.web
             services.AddTransient<SeedDb>();
             //tem o ciclo de vida durante toda a aplicação
             services.AddScoped<IJogoRepository, JogoRepository>();
+
             services.AddScoped< IclubeRepsositrory, ClubeRepository>();
+
+            services.AddScoped<IUserHelper, UserHelper>();
+
 
 
 
@@ -62,6 +67,7 @@ namespace Brasileirao.web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

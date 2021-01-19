@@ -1,10 +1,12 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Brasileirao.web.Data.Entities
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    public class Jogos :IEntity
+    public class Jogo : IEntity
     {
         public int Id { get; set; }
 
@@ -23,5 +25,10 @@ namespace Brasileirao.web.Data.Entities
         [Display(Name = "Ultimo Jogo")]
         public DateTime ultimoJogo { get; set; }
 
+        //internal static string Getjogos()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        public User User { get; set; }
     }
 }

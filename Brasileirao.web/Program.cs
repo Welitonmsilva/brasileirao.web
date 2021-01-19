@@ -1,20 +1,22 @@
-﻿using Brasileirao.web.Data;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿
 
 namespace Brasileirao.web
 {
+
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.DependencyInjection;
+    using Brasileirao.web.Data;
     public class Program
     {
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
-            Runseeding(host);
+            RunSeeding(host);
             host.Run();
         }
 
-        private static void Runseeding(IWebHost host)
+        private static void RunSeeding(IWebHost host)
         {
             var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
             using (var scope = scopeFactory.CreateScope())
@@ -24,8 +26,10 @@ namespace Brasileirao.web
             }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                  .UseStartup<Startup>();
+        }
     }
 }

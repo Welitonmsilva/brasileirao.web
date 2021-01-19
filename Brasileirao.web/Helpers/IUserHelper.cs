@@ -14,5 +14,6 @@ namespace Brasileirao.web.Helpers
 
 
         Task<IdentityResult> AddUserAsync(User user, string password);
+
     }
 }

@@ -3,10 +3,10 @@
 namespace Brasileirao.web
 {
 
+    using Brasileirao.web.Data;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
-    using Brasileirao.web.Data;
     public class Program
     {
         public static void Main(string[] args)
@@ -21,6 +21,8 @@ namespace Brasileirao.web
             var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
             using (var scope = scopeFactory.CreateScope())
             {
+                
+
                 var seeder = scope.ServiceProvider.GetService<SeedDb>();
                 seeder.SeedAsync().Wait();
             }

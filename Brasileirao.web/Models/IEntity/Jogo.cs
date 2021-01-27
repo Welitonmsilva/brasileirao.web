@@ -10,6 +10,8 @@ namespace Brasileirao.web.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50, ErrorMessage = "The field {0} only can contain a maximum {1} characters")]
         public string Jornadas { get; set; }
 
         public string Clube { get; set; }
@@ -30,6 +32,9 @@ namespace Brasileirao.web.Models
         //    throw new NotImplementedException();
         //}
         public User User { get; set; }
+
+        [Required]
+        [MaxLength(50, ErrorMessage = "The field {0} only can contain a maximum {1} characters")]
         public string Name { get; set; }
         //public string Name { get ; set ; }
     }

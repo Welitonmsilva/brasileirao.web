@@ -9,7 +9,7 @@ namespace Brasileirao.web.Models
 
         public DbSet<Jogo> Jogos { get; set; }
         public DbSet<Clube> Clubes { get; set; }
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
 
 
         public DataContext(DbContextOptions options) : base(options)

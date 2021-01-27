@@ -4,6 +4,7 @@ namespace Brasileirao.web
     using Brasileirao.web.Data;
     using Brasileirao.web.Helpers;
     using Brasileirao.web.Models;
+    using Brasileirao.web.Models.Repository;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -43,13 +44,13 @@ namespace Brasileirao.web
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
             //injetar novos serviço// seedDB tem o ciclo de vida mais curta na aplicação
-            //services.AddTransient<SeedDb>();
+            services.AddTransient<SeedDb>();
             //tem o ciclo de vida durante toda a aplicação
-            //services.AddScoped<IJogoRepository, JogoRepository>();
+            services.AddScoped<IJogoRepository, JogoRepository>();
 
-            //services.AddScoped<IclubeRepsositrory, ClubeRepository>();
+            services.AddScoped<IClubeRepository, ClubeRepository>();
 
-            //services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IUserHelper, UserHelper>();
 
 
 

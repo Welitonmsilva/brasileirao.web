@@ -1,30 +1,30 @@
-﻿
+﻿using Microsoft.AspNetCore.Identity;
+using Brasileirao.web.Helpers;
+//using Brasileirao.web.Models.entities;
+//using Brasileirao.web.Models.Ientities;
+
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Brasileirao.web.Models;
 
 namespace Brasileirao.web.Data
 {
-    
-    using Brasileirao.web.Helpers;
-    using Brasileirao.web.Models;
-    using Microsoft.AspNetCore.Identity;
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-
-
     public class SeedDb
     {
 
         private readonly DataContext _context;
-        //private readonly IUserHelper _userHelper;
+        private readonly IUserHelper _userHelper;
         private  Random _random;
 
-        public SeedDb(DataContext context, IUserHelper userHelper)
+        public SeedDb(DataContext context, IUserHelper userHelper, Random random)
         {
             _context = context;
 
             _userHelper = userHelper;
             _random = new Random();
+            //_random = random;
         }
 
 
@@ -53,44 +53,65 @@ namespace Brasileirao.web.Data
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+                //await _userHelper.AddUserToRoleAsync(user, "Admin");
 
             }
+            //var isInRole = await _userHelper.IsUserInRoleAsync(user, "Admin");
+            //if (!isInRole)
+            //{
+            //    await _userHelper.AddUserToRoleAsync(user, "Admin");
+            //}
 
             if (!_context.Jogos.Any())
             {
-                this.AddJogo("1", user);
-                this.AddJogo("2", user);
-                this.AddJogo("3", user);
-                this.AddJogo("4", user);
-                this.AddJogo("5", user);
+                this.AddJogo(" iPhone X 1", user);
+                this.AddJogo(" iPhone X 2", user);
+                this.AddJogo(" iPhone X 3", user);
+                this.AddJogo(" iPhone X 4", user);
+                this.AddJogo(" iPhone X 5", user);
                 await _context.SaveChangesAsync();
             }
         }
 
-        private void AddJogo(string v, User user)
+        private void AddJogo(string name, User user)
         {
-            throw new NotImplementedException();
-        }
-
-        private void AddJogo(string name, User user, int num/*, DateTime dateTime*/)
-        {
-            _context.Jogos.Add(new Jogo
+            _context.Jogos.Add(entity: new Jogo
             {
-                Jornadas = name,
+                Jornadas = name.Normalize(),
                 Clube = name,
-                Pontos = num,
+                //Pontos = num,
                 //ultimoJogo = dateTime,
-                Posicao = num,
+                //Posicao = num,
                 User = user
             });
 
-            //private void AddJogo(string )
-            //{
+        //private void AddJogo(string name, User user,int num)
+        //{
+        //    _context.Jogos.Add(new Jogo
+        //    {
+        //        Jornadas = name,
+        //        Clube = name,
+        //        Pontos = num,
+        //        //ultimoJogo = dateTime,
+        //        Posicao = num,
+        //        User = user
+        //    });
+        //}
 
-
-
-
-            //    });
+        //private void AddJogo(string name, User user, int num/*, DateTime dateTime*/)
+        //{
+        //    _context.Jogos.Add(new Jogo
+        //    {
+        //        Jornadas = name,
+        //        Clube = name,
+        //        Pontos = num,
+        //        //ultimoJogo = dateTime,
+        //        Posicao = num,
+        //        User = user
+        //    });
         }
+
+
     }
+    
 }

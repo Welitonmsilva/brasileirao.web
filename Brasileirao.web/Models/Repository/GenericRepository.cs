@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Brasileirao.web.Models.IEntities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,12 @@ namespace Brasileirao.web.Models.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
     {
-        private readonly DataContext _context;
+        private readonly DataContext _context;        
 
         public GenericRepository(DataContext context)
         {
             _context = context;
         }
-
 
         public IQueryable<T> GetAll()
         {

@@ -1,4 +1,5 @@
 ﻿using Brasileirao.web.Models;
+using Brasileirao.web.Models.IEntities;
 
 namespace Brasileirao.web.Helpers
 {

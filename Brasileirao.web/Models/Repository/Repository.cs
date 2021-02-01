@@ -17,37 +17,33 @@ namespace Brasileirao.web.Models.Repository
         }
 
 
-        //Método que vai buscar os produtos todos
-        public IEnumerable<Jogo> GetProducts()
+        //Método que vai buscar os jogo todos
+        public IEnumerable<Jogo> GetJogo()
         {
             return _context.Jogos.OrderBy(p => p.Name);
         }
 
 
-        //Método que vai buscar um produto pelo id
-        public Jogo GetProduct(int id)
-        {
-            return _context.Jogos.Find(id);
-        }
 
 
-        //Método que adiciona um produto á tabela
-        public void AddProduct(Jogo Jogo
+
+        //Método que adiciona um jogo á tabela
+        public void AddJogo(Jogo Jogo
             )
         {
             _context.Jogos.Add(Jogo);
         }
 
 
-        //Método que atualiza (update) um produto
-        public void UpdateProduct(Jogo Jogo)
+        //Método que atualiza (update) um jogo
+        public void UpdateJogo(Jogo Jogo)
         {
             _context.Update(Jogo);
         }
 
 
-        //Método que remove um produto
-        public void RemoveProduct(Jogo Jogo)
+        //Método que remove um Jogo
+        public void RemoveJogo(Jogo Jogo)
         {
             _context.Jogos.Remove(Jogo);
         }
@@ -60,14 +56,53 @@ namespace Brasileirao.web.Models.Repository
         }
 
 
-        //Método que verifica se o produto existe
-        public bool ProductExists(int Id)
+        //Método que verifica se o Jogo existe
+        public bool JogotExists(int Id)
         {
             return _context.Jogos.Any(p => p.Id == Id);
         }
-    }
 
-    public interface IRepository
-    {
+        public void AddJogo(Clube clube)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Jogo GetJogo(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Jogo> GetJogos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Jogo> GetClube()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool clubetExists(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Removeclube(Clube clube)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Removejogo(Jogo jogo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Updateclube(Clube clube)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
+
+    
+

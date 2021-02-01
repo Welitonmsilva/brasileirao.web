@@ -9,7 +9,7 @@ namespace Brasileirao.web.Models.Repository
     {
         public ClubeRepository(DataContext context) : base(context)
         {
-
         }
+
     }
 }

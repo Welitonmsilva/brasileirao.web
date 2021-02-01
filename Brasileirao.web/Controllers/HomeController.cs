@@ -10,7 +10,7 @@ namespace Brasileirao.web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult index()
         {
             return View();
         }
@@ -38,6 +38,15 @@ namespace Brasileirao.web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+
+
+
+        public IActionResult xpto()
+        {
+            return View();
         }
     }
 }

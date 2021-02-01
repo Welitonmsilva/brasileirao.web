@@ -23,12 +23,15 @@ namespace Brasileirao.web.Models.Repository
         bool clubetExists(int Id);
 
 
-        void Removeclube(Jogo jogo);
+        void Removeclube(Clube clube);
+        void Removejogo(Jogo jogo);
+
 
 
         Task<bool> SaveAllAsync();
 
 
         void UpdateJogo(Jogo jogo);
+        void Updateclube(Clube clube);
     }
 }

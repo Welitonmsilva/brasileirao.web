@@ -4,6 +4,7 @@ namespace Brasileirao.web
     using Brasileirao.web.Data;
     using Brasileirao.web.Helpers;
     using Brasileirao.web.Models;
+    using Brasileirao.web.Models.IEntities;
     using Brasileirao.web.Models.Repository;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -26,7 +27,7 @@ namespace Brasileirao.web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;

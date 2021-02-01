@@ -1,6 +1,11 @@
-﻿namespace Brasileirao.web.Models.Repository
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Brasileirao.web.Models.Repository
 {
-    internal interface IJogoRepository : IGenericRepository<Jogo>
+    public interface IJogoRepository : IGenericRepository<Jogo>
     {
+
+        
     }
 }

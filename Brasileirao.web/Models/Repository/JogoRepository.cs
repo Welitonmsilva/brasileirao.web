@@ -12,6 +12,36 @@ namespace Brasileirao.web.Models.Repository
 
         }
 
+        public void AddJogos(Jogo jogo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Jogo Getjogos(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Jogo> Getjogos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool JogostExists(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveJogos(Jogo jogo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateJogos(Jogo jogo)
+        {
+            throw new NotImplementedException();
+        }
+
         //public void AddJogo(Jogo jogo)
         //{
         //    throw new NotImplementedException();
@@ -43,7 +73,7 @@ namespace Brasileirao.web.Models.Repository
         //    throw new NotImplementedException();
         //}
 
-        
+
     }
 
 }

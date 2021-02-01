@@ -53,7 +53,7 @@ namespace Brasileirao.web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Clube clube)
+        public async Task<IActionResult> Create([Bind("Id,nome,cidade,campo,ImageUrl")] Clube clube)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Brasileirao.web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Clube clube)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,nome,cidade,campo,ImageUrl")] Clube clube)
         {
             if (id != clube.Id)
             {

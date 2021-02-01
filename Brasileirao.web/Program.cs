@@ -24,7 +24,7 @@ namespace Brasileirao.web
 
 
                 //var seeder = scope.ServiceProvider.GetService<SeedDb>();
-                // seeder.SeedAsync().Wait();
+                //seeder.SeedAsync().Wait();
             }
         }
 

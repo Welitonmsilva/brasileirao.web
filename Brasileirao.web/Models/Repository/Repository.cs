@@ -20,7 +20,7 @@ namespace Brasileirao.web.Models.Repository
         //Método que vai buscar os jogo todos
         public IEnumerable<Jogo> GetJogo()
         {
-            return _context.Jogos.OrderBy(p => p.Name);
+            return _context.Jogos.OrderBy(p => p.Clube);
         }
 
 

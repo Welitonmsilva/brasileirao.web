@@ -11,6 +11,7 @@ namespace Brasileirao.web.Controllers
 {
     public class ClubesController : Controller
     {
+
         private readonly DataContext _context;
 
         public ClubesController(DataContext context)

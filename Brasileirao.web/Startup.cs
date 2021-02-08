@@ -27,7 +27,7 @@ namespace Brasileirao.web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
@@ -45,18 +45,12 @@ namespace Brasileirao.web
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
             //injetar novos serviço// seedDB tem o ciclo de vida mais curta na aplicação
-            services.AddTransient<SeedDb>();
+            //services.AddTransient<SeedDb>();
+
             //tem o ciclo de vida durante toda a aplicação
             services.AddScoped<IJogoRepository, JogoRepository>();
-
             services.AddScoped<IClubeRepository, ClubeRepository>();
-
             services.AddScoped<IUserHelper, UserHelper>();
-
-
-
-
-
 
             services.Configure<CookiePolicyOptions>(options =>
             {

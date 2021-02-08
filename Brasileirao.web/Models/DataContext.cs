@@ -1,6 +1,7 @@
 ﻿using Brasileirao.web.Models.IEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Brasileirao.web.Models
 {
@@ -18,6 +19,28 @@ namespace Brasileirao.web.Models
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+
+
+
+            //Habilitar a cascade Rule
+            var cascadeFKs = modelBuilder.Model
+                .GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+
+            foreach (var fk in cascadeFKs)
+            {
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+            }
+
+            base.OnModelCreating(modelBuilder);
+
+        }
 
 
 

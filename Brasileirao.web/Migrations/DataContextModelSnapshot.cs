@@ -111,18 +111,13 @@ namespace Brasileirao.web.Migrations
 
                     b.Property<string>("ImageUrl");
 
-                    b.Property<decimal>("Jornadas");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50);
+                    b.Property<int>("Jornadas");
 
                     b.Property<int>("Pontos");
 
                     b.Property<int>("Posicao");
 
                     b.Property<string>("UserId");
-
-                    b.Property<string>("email");
 
                     b.HasKey("Id");
 

@@ -17,25 +17,18 @@ namespace Brasileirao.web.Helpers
         Task<IdentityResult> AddUserAsync(User user, string password);
 
 
-        //Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task<SignInResult> LoginAsync(LoginViewModel model);
 
+        Task LogoutAsync();
 
+        Task<IdentityResult> UpdateUserAseync(User user);
 
-        //Task LogoutAsync();
+        Task<IdentityResult> ChangePassewordAsync(User user, string oldPassword, string newPasseWord);
+        Task CheckRoleAsync(string roliName);
 
-
-        //Task<IdentityResult> UpdateUserAsync(User user);
-
-
-        //Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
-
-
-        //Task CheckRoleAsync(string roleName);
-
-
-        //Task AddUserToRoleAsync(User user, string roleName);
-
-
-        //Task<bool> IsUserInRoleAsync(User user, string roleName);
+        Task AddUserToReleAseync(User user, string roleName);
+        Task<bool> IsUserInRoleAsync(User user, string roleName);
+       
+        
     }
 }

@@ -11,8 +11,8 @@ namespace Brasileirao.web.Models
     {
         public int Id { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:2}", ApplyFormatInEditMode = false)]
-        public decimal Jornadas { get; set; }
+        
+        public int Jornadas { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "The field {0} only can contain a maximum {1} characters")]
         public string Clube { get; set; }
@@ -25,20 +25,9 @@ namespace Brasileirao.web.Models
         public string ImageUrl { get; set; }
 
 
-        //[Display(Name = "Ultimo Jogo")]
-        //public DateTime ultimoJogo { get; set; }
+       public User User { get; set; }
 
-        //internal static string Getjogos()
-        //{
-        //    throw new NotImplementedException();
-        //}
-        public User User { get; set; }
 
-        
-        [MaxLength(50, ErrorMessage = "The field {0} only can contain a maximum {1} characters")]
-        public string Name { get; set; }
-
-        public string email { get; set; }
 
     }
 }

@@ -10,7 +10,7 @@ namespace Brasileirao.web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -41,12 +41,5 @@ namespace Brasileirao.web.Controllers
         }
 
 
-
-
-
-        public IActionResult xpto()
-        {
-            return View();
-        }
     }
 }

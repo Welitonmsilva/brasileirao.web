@@ -19,39 +19,118 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#1a7632">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">brasileirao.web</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Jogos" asp-action="Index">Jogo</a></li>
-                    <li><a asp-area="" asp-controller="Clubes" asp-action="Index">Clube</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if (this.User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
-                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
-                    }
-                    else
-                    {
-                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    }
-                </ul>
+    <div class="tg-modalbox modal fade" id="tg-login" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="tg-modal-content">
+                <div class="tg-formarea">
+                    <div class="tg-border-heading">
+                        <h3>Login</h3>
+                    </div>
+                    <form class="tg-loginform" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" name="userName/email" class="form-control" placeholder="username/email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" placeholder="password">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" value="rememberme" class="checkbox">
+                                    <em>Remember Me</em>
+                                </label>
+                                <a href="#">
+                                    <em>Forgot Password</em>
+                                    <i class="fa fa-question-circle"></i>
+                                </a>
+                            </div>
+                            <div class="form-group">
+                                <button class="tg-btn tg-btn-lg" type="submit">Login Now</button>
+                            </div>
+                            <div class="tg-description">
+                                <p>Don't have an account? <a href="#">Signup</a></p>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="tg-logintype">
+
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+    <div class="tg-modalbox modal fade" id="tg-register" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="tg-modal-content">
+                <div class="tg-formarea">
+                    <div class="tg-border-heading">
+                        <h3>Signup</h3>
+                    </div>
+                    <form class="tg-loginform" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" name="userName" class="form-control" placeholder="username">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control" placeholder="email">
+                            </div>
+                            <div class="form-group">
+                                <div class="tg-note">
+                                    <i class="fa fa-exclamation-circle"></i>
+                                    <span>We will email you your password.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="tg-btn tg-btn-lg" type="submit">Login Now</button>
+                            </div>
+                            <div class="tg-description">
+                                <p>Already have an account? <a href="#">Login</a></p>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="tg-logintype">
+                    <div class="tg-border-heading">
+                        <h3>Signup with</h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#1a7632">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">brasileirao.web</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-area="" asp-controller="Jogos" asp-action="Index">Jogo</a></li>
+                        <li><a asp-area="" asp-controller="Clubes" asp-action="Index">Clube</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
 
     <partial name="_CookieConsentPartial" />
 

@@ -1,34 +1,28 @@
-﻿using Brasileirao.web.Helpers;
-using Brasileirao.web.Models;
-using Brasileirao.web.Models.Repository;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Brasileirao.web.Models;
+using Brasileirao.web.Models.IEntities;
 
 namespace Brasileirao.web.Controllers
 {
     public class JogosController : Controller
     {
-        private readonly IJogoRepository _JogoRepository;
-        private readonly IUserHelper _userHelper;
+        private readonly DataContext _context;
 
-
-        public JogosController(IJogoRepository JogoRepository, IJogoRepository jogoRepository, IUserHelper userHelper)
+        public JogosController(DataContext context)
         {
-          
-            _JogoRepository = JogoRepository;
-            _userHelper = userHelper;
+            _context = context;
         }
 
         // GET: Jogos
         public async Task<IActionResult> Index()
         {
-            return View(_JogoRepository.GetAll());
+            return View(await _context.Jogos.ToListAsync());
         }
 
         // GET: Jogos/Details/5
@@ -39,18 +33,17 @@ namespace Brasileirao.web.Controllers
                 return NotFound();
             }
 
-            var Jogo = await _JogoRepository.GetByIdAsync(id.Value);
-
-            if (Jogo == null)
+            var jogo = await _context.Jogos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (jogo == null)
             {
                 return NotFound();
             }
 
-            return View(Jogo);
+            return View(jogo);
         }
-        [Authorize(Roles = "Admin")]
-        // GET: Jogos/Create
 
+        // GET: Jogos/Create
         public IActionResult Create()
         {
             return View();
@@ -59,55 +52,19 @@ namespace Brasileirao.web.Controllers
         // POST: Jogos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-   [HttpPost]
-        
-        public async Task<IActionResult> Create(JogoViewModel view)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Jornadas,Clube,Pontos,Posicao,ImageUrl")] Jogo jogo)
         {
             if (ModelState.IsValid)
             {
-                var path = string.Empty;
-
-                if (view.ImageFile != null && view.ImageFile.Length > 0)
-                {
-                    var guid = Guid.NewGuid().ToString();
-                    var file = $"{guid}.jpg";
-
-                    path = Path.Combine(Directory.GetCurrentDirectory(),
-                        "wwwroot\\images\\Jogos",
-                        file);
-
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await view.ImageFile.CopyToAsync(stream);
-                    }
-
-                    path = $"~/images/jogos/{file}";
-                }
-
-                var product = this.ToJogo (view, path);
-                product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-                await _JogoRepository.CreateAsync(product);
+                _context.Add(jogo);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(view);
+            return View(jogo);
         }
 
-        private Jogo ToJogo(JogoViewModel view, string path)
-        {
-            return new Jogo
-            {
-                Id = view.Id,
-                ImageUrl = path,
-                Jornadas = view.Jornadas,
-                Clube = view.Clube,
-                Pontos = view.Pontos,
-                Posicao = view.Posicao,              
-                User = view.User
-            };
-        }
-
-
-        //[Authorize(Roles = "Admin")]
         // GET: Jogos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -116,39 +73,22 @@ namespace Brasileirao.web.Controllers
                 return NotFound();
             }
 
-            //var jogo = await _context.Jogos.FindAsync(id);
-            var jogo = await this._JogoRepository.GetByIdAsync(id.Value);
+            var jogo = await _context.Jogos.FindAsync(id);
             if (jogo == null)
             {
                 return NotFound();
             }
-            var view = this.ToJogoViewModel(jogo);
-            return View(view);
-        }
-
-        private JogoViewModel ToJogoViewModel(Jogo jogo)
-        {
-            return new JogoViewModel
-            {
-                Id = jogo.Id,
-                ImageUrl = jogo.ImageUrl,
-                Jornadas = jogo.Jornadas,
-                Clube = jogo.Clube,
-                Pontos = jogo.Pontos,
-                Posicao = jogo.Posicao,               
-                User = jogo.User
-            };
+            return View(jogo);
         }
 
         // POST: Jogos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
         [HttpPost]
-
-        public async Task<IActionResult> Edit(int id, JogoViewModel view)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Jornadas,Clube,Pontos,Posicao,ImageUrl")] Jogo jogo)
         {
-            if (id != view.Id)
+            if (id != jogo.Id)
             {
                 return NotFound();
             }
@@ -157,33 +97,12 @@ namespace Brasileirao.web.Controllers
             {
                 try
                 {
-                    var path = view.ImageUrl;
-
-                    if (view.ImageFile != null && view.ImageFile.Length > 0)
-                    {
-
-                        var guid = Guid.NewGuid().ToString();
-                        var file = $"{guid}.jpg";
-
-                        path = Path.Combine(Directory.GetCurrentDirectory(),
-                        "wwwroot\\images\\jogos",
-                        file);
-
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            await view.ImageFile.CopyToAsync(stream);
-                        }
-
-                        path = $"~/images/jogos/{file}";
-                    }
-
-                    var product = this.ToJogo(view, path);
-                    product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-                    await _JogoRepository.UpdateAsync(product);
+                    _context.Update(jogo);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _JogoRepository.ExistAsync(view.Id))
+                    if (!JogoExists(jogo.Id))
                     {
                         return NotFound();
                     }
@@ -194,12 +113,10 @@ namespace Brasileirao.web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(view);
+            return View(jogo);
         }
-        //[Authorize(Roles = "Admin")]
+
         // GET: Jogos/Delete/5
-
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -207,25 +124,30 @@ namespace Brasileirao.web.Controllers
                 return NotFound();
             }
 
-            var Jogo = await _JogoRepository.GetByIdAsync(id.Value);
-            if (Jogo == null)
+            var jogo = await _context.Jogos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (jogo == null)
             {
                 return NotFound();
             }
 
-            return View(Jogo);
+            return View(jogo);
         }
 
         // POST: Jogos/Delete/5
         [HttpPost, ActionName("Delete")]
-     
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _JogoRepository.GetByIdAsync(id);
-            await _JogoRepository.DeleteAsync(product);
+            var jogo = await _context.Jogos.FindAsync(id);
+            _context.Jogos.Remove(jogo);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        
+        private bool JogoExists(int id)
+        {
+            return _context.Jogos.Any(e => e.Id == id);
+        }
     }
 }

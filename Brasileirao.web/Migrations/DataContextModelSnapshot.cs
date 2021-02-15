@@ -31,17 +31,142 @@ namespace Brasileirao.web.Migrations
 
                     b.Property<string>("campo");
 
-                    b.Property<string>("cidade");
+                    b.Property<int>("cidade");
 
-                    b.Property<string>("nome")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("nome");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Clubes");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Campo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cidade");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("capacidade");
+
+                    b.Property<string>("local");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Campos");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Cidade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("nome");
+
+                    b.Property<int>("populacao");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cidades");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Classificacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("D");
+
+                    b.Property<int>("E");
+
+                    b.Property<int>("GM");
+
+                    b.Property<int>("GS");
+
+                    b.Property<int>("J");
+
+                    b.Property<string>("NomeEquipa");
+
+                    b.Property<int>("Posicao");
+
+                    b.Property<int>("Pts");
+
+                    b.Property<int>("V");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Calssificacaoes");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Jogador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cidade");
+
+                    b.Property<int>("Clube");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<int>("Posicao");
+
+                    b.Property<int>("idade");
+
+                    b.Property<string>("morada");
+
+                    b.Property<string>("nome");
+
+                    b.Property<int>("num_B_I");
+
+                    b.Property<string>("userId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Jogador");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Jogo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Clube");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<int>("Jornadas");
+
+                    b.Property<int>("Pontos");
+
+                    b.Property<int>("Posicao");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Jogos");
                 });
 
             modelBuilder.Entity("Brasileirao.web.Models.IEntities.User", b =>
@@ -99,31 +224,21 @@ namespace Brasileirao.web.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Brasileirao.web.Models.Jogo", b =>
+            modelBuilder.Entity("Brasileirao.web.Models.Treinador", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id_treinador")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Clube")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<int>("Id");
 
-                    b.Property<string>("ImageUrl");
+                    b.Property<string>("nome");
 
-                    b.Property<int>("Jornadas");
+                    b.Property<int>("num_b_i");
 
-                    b.Property<int>("Pontos");
+                    b.HasKey("id_treinador");
 
-                    b.Property<int>("Posicao");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Jogos");
+                    b.ToTable("Treinadores");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -243,7 +358,28 @@ namespace Brasileirao.web.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Brasileirao.web.Models.Jogo", b =>
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Campo", b =>
+                {
+                    b.HasOne("Brasileirao.web.Models.IEntities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Cidade", b =>
+                {
+                    b.HasOne("Brasileirao.web.Models.IEntities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Jogador", b =>
+                {
+                    b.HasOne("Brasileirao.web.Models.IEntities.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
+                });
+
+            modelBuilder.Entity("Brasileirao.web.Models.IEntities.Jogo", b =>
                 {
                     b.HasOne("Brasileirao.web.Models.IEntities.User", "User")
                         .WithMany()

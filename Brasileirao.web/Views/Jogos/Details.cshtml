@@ -1,8 +1,8 @@
-﻿@model Brasileirao.web.Models.Jogo
+﻿@model Brasileirao.web.Models.IEntities.Jogo
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Home/Index.cshtml";
 }
 
 <h2>Details</h2>
@@ -10,7 +10,7 @@
 <div>
     <h4>Jogo</h4>
     <hr />
-    <dl class="dl-horizontal" enctype="multipart/form-data">
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Jornadas)
         </dt>
@@ -35,22 +35,14 @@
         <dd>
             @Html.DisplayFor(model => model.Posicao)
         </dd>
-        <div class="col-md-4">
-            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-            {
-                <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width:300px;height:450px;max-width:100%;height:auto" />
-
-            }
-        </div>
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.ImageUrl)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ImageUrl)
-        </dd>*@
+        </dd>
     </dl>
 </div>
-
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

@@ -12,7 +12,7 @@ namespace Brasileirao.web.Models
         [Display(Name = "Current PasseWord")]
         public string OldPassword { get; set; }
         [Required]
-        [Display(Name ="NewPasseWord")]
+        [Display(Name = "NewPasseWord")]
         public string NewPassword { get; set; }
         [Required]
         [Compare("NewPasseWord")]

@@ -1,0 +1,49 @@
+﻿@model Brasileirao.web.Models.IEntities.Campo
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Home/Index.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>Campo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="local" class="control-label"></label>
+                <input asp-for="local" class="form-control" />
+                <span asp-validation-for="local" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="capacidade" class="control-label"></label>
+                <input asp-for="capacidade" class="form-control" />
+                <span asp-validation-for="capacidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cidade" class="control-label"></label>
+                <input asp-for="Cidade" class="form-control" />
+                <span asp-validation-for="Cidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

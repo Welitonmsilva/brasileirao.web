@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Brasileirao.web.Models.IEntities
 {
-     public interface IEntity
+    public interface IEntity
     {
-        int  Id { get; set; }
+        int Id { get; set; }
     }
 }

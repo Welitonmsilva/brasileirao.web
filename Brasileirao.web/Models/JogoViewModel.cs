@@ -8,7 +8,7 @@ namespace Brasileirao.web.Models
     public class JogoViewModel : Jogo
     {
         [Display(Name = "Imagem")]
-        public IFormFile  ImageFile { get; set; }
+        public IFormFile ImageFile { get; set; }
 
     }
 }

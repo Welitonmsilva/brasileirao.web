@@ -134,7 +134,7 @@ namespace Brasileirao.web.Controllers
             {
 
                 var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-                if (user !=null)
+                if (user != null)
                 {
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
@@ -156,10 +156,14 @@ namespace Brasileirao.web.Controllers
             return this.View(model);
 
         }
+        public IActionResult ChangePassword()
+        {
+            return this.View();
+        }
 
 
-       [HttpPost]
-       public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (this.ModelState.IsValid)
             {

@@ -28,7 +28,7 @@ namespace Brasileirao.web.Helpers
 
         Task AddUserToReleAseync(User user, string roleName);
         Task<bool> IsUserInRoleAsync(User user, string roleName);
-       
-        
+
+
     }
 }

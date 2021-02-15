@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Brasileirao.web.Migrations
 {
-    public partial class image : Migration
+    public partial class inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,42 @@ namespace Brasileirao.web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Calssificacaoes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Posicao = table.Column<int>(nullable: false),
+                    NomeEquipa = table.Column<string>(nullable: true),
+                    Pts = table.Column<int>(nullable: false),
+                    V = table.Column<int>(nullable: false),
+                    J = table.Column<int>(nullable: false),
+                    E = table.Column<int>(nullable: false),
+                    D = table.Column<int>(nullable: false),
+                    GM = table.Column<int>(nullable: false),
+                    GS = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Calssificacaoes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Treinadores",
+                columns: table => new
+                {
+                    id_treinador = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    num_b_i = table.Column<int>(nullable: false),
+                    nome = table.Column<string>(nullable: true),
+                    Id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Treinadores", x => x.id_treinador);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,16 +192,60 @@ namespace Brasileirao.web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Campos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    local = table.Column<string>(nullable: true),
+                    capacidade = table.Column<int>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    Cidade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Campos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Campos_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cidades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    nome = table.Column<string>(nullable: true),
+                    populacao = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cidades", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cidades_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Clubes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    nome = table.Column<string>(maxLength: 50, nullable: false),
-                    cidade = table.Column<string>(nullable: true),
-                    campo = table.Column<string>(nullable: true),
+                    nome = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    cidade = table.Column<int>(nullable: false),
+                    campo = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -179,13 +259,40 @@ namespace Brasileirao.web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Jogador",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    num_B_I = table.Column<int>(nullable: false),
+                    nome = table.Column<string>(nullable: true),
+                    morada = table.Column<string>(nullable: true),
+                    idade = table.Column<int>(nullable: false),
+                    userId = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    Clube = table.Column<int>(nullable: false),
+                    Posicao = table.Column<int>(nullable: false),
+                    Cidade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jogador", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Jogador_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Jogos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Jornadas = table.Column<int>(nullable: false),
-                    Clube = table.Column<string>(maxLength: 50, nullable: false),
+                    Clube = table.Column<string>(nullable: true),
                     Pontos = table.Column<int>(nullable: false),
                     Posicao = table.Column<int>(nullable: false),
                     ImageUrl = table.Column<string>(nullable: true),
@@ -242,9 +349,24 @@ namespace Brasileirao.web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Campos_UserId",
+                table: "Campos",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cidades_UserId",
+                table: "Cidades",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clubes_UserId",
                 table: "Clubes",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jogador_userId",
+                table: "Jogador",
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jogos_UserId",
@@ -270,10 +392,25 @@ namespace Brasileirao.web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Calssificacaoes");
+
+            migrationBuilder.DropTable(
+                name: "Campos");
+
+            migrationBuilder.DropTable(
+                name: "Cidades");
+
+            migrationBuilder.DropTable(
                 name: "Clubes");
 
             migrationBuilder.DropTable(
+                name: "Jogador");
+
+            migrationBuilder.DropTable(
                 name: "Jogos");
+
+            migrationBuilder.DropTable(
+                name: "Treinadores");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

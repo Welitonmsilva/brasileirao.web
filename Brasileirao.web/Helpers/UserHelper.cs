@@ -14,7 +14,7 @@ namespace Brasileirao.web.Helpers
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserHelper(UserManager<User> userManager, 
+        public UserHelper(UserManager<User> userManager,
             SignInManager<User> signInManager,
                 RoleManager<IdentityRole> roleManager)
         {
@@ -26,15 +26,15 @@ namespace Brasileirao.web.Helpers
         {
             return await _userManager.CreateAsync(user, password);
         }
-        
+
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await _userManager.FindByNameAsync(email);
-        }  
-        public  async Task<SignInResult> LoginAsync(LoginViewModel model)
+        }
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
             return await _signInManager.PasswordSignInAsync(
-                model.Username, 
+                model.Username,
                 model.Password,
                 model.RememberMe,
                 false);//esta em false poque se colocar x tentativas ele bloqueia a conta
@@ -44,7 +44,7 @@ namespace Brasileirao.web.Helpers
         {
             await _signInManager.SignOutAsync();
 
-        }        
+        }
 
         //public async Task AddUserToRoleAsync(User user, string roleName)
         //{
@@ -63,7 +63,7 @@ namespace Brasileirao.web.Helpers
             return await this._userManager.IsInRoleAsync(user, "Admin");
         }
 
-        public  async Task CheckRoleAsync(string roleName)
+        public async Task CheckRoleAsync(string roleName)
         {
             var roleExists = await _roleManager.RoleExistsAsync(roleName);
             if (!roleExists)
@@ -75,7 +75,7 @@ namespace Brasileirao.web.Helpers
             }
         }
 
-        public  async Task AddUserToReleAseync(User user, string roleName)
+        public async Task AddUserToReleAseync(User user, string roleName)
         {
             await _userManager.AddToRoleAsync(user, roleName);
         }

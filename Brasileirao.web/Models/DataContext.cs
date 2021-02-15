@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Brasileirao.web.Models;
 
 namespace Brasileirao.web.Models
 {
@@ -9,10 +10,20 @@ namespace Brasileirao.web.Models
     {
 
 
-        public DbSet<Jogo> Jogos { get; set; }        
+        public DbSet<Jogo> Jogos { get; set; }
 
         public DbSet<Clube> Clubes { get; set; }
+        public DbSet<Jogador> Jogogadores { get; set; }      
         public DbSet<User> User { get; set; }
+        public DbSet<Campo> Campos { get; set; }
+
+        public DbSet<Cidade> Cidades { get; set; }
+
+        public DbSet<Jogador> Jogadores { get; set; }
+
+        public DbSet<Treinador> Treinadores { get; set; }     
+
+        public DbSet<Classificacao> Calssificacaoes { get; set; }
 
 
         public DataContext(DbContextOptions options) : base(options)
@@ -41,6 +52,8 @@ namespace Brasileirao.web.Models
             base.OnModelCreating(modelBuilder);
 
         }
+
+       
 
 
 

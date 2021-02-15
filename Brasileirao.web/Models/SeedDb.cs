@@ -12,21 +12,24 @@ namespace Brasileirao.web.Data
     {
 
         private readonly DataContext _context;
-        private readonly IUserHelper _userHelper;       
+        private readonly IUserHelper _userHelper;
         private readonly Random _random;
-
+        //contrutor
         public SeedDb(DataContext context, IUserHelper userHelper)
         {
             _context = context;
-            _userHelper = userHelper;           
+            _userHelper = userHelper;
             _random = new Random();
         }
+
+        //metodo asyncrono
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
             await _userHelper.CheckRoleAsync("Admin");
             await _userHelper.CheckRoleAsync("Customer");
 
+          
 
             var user = await _userHelper.GetUserByEmailAsync("weliton.mesquita.silva@formandos.cinel.pt");
             if (user == null)
@@ -52,13 +55,13 @@ namespace Brasileirao.web.Data
             var isInRole = await _userHelper.IsUserInRoleAsync(user, "Admin");
             if (!isInRole)
             {
-                await _userHelper.AddUserToReleAseync(user, "Admin");                               
+                await _userHelper.AddUserToReleAseync(user, "Admin");
             }
 
-           
-        }           
-        
-    } 
+
+        }
+
+    }
 }
 
 

@@ -1,0 +1,70 @@
+﻿@model Brasileirao.web.Models.IEntities.Jogador
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Home/Index.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Jogador</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="num_B_I" class="control-label"></label>
+                <input asp-for="num_B_I" class="form-control" />
+                <span asp-validation-for="num_B_I" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nome" class="control-label"></label>
+                <input asp-for="nome" class="form-control" />
+                <span asp-validation-for="nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="morada" class="control-label"></label>
+                <input asp-for="morada" class="form-control" />
+                <span asp-validation-for="morada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idade" class="control-label"></label>
+                <input asp-for="idade" class="form-control" />
+                <span asp-validation-for="idade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clube" class="control-label"></label>
+                <input asp-for="Clube" class="form-control" />
+                <span asp-validation-for="Clube" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Posicao" class="control-label"></label>
+                <input asp-for="Posicao" class="form-control" />
+                <span asp-validation-for="Posicao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cidade" class="control-label"></label>
+                <input asp-for="Cidade" class="form-control" />
+                <span asp-validation-for="Cidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

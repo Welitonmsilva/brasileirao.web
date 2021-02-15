@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Brasileirao.web.Models.IEntities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Brasileirao.web.Models.Repository
@@ -6,6 +7,6 @@ namespace Brasileirao.web.Models.Repository
     public interface IJogoRepository : IGenericRepository<Jogo>
     {
 
-        
+
     }
 }

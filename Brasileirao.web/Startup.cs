@@ -1,6 +1,7 @@
 ﻿
 namespace Brasileirao.web
 {
+    using Brasileirao.web.Controllers;
     using Brasileirao.web.Data;
     using Brasileirao.web.Helpers;
     using Brasileirao.web.Models;
@@ -51,6 +52,12 @@ namespace Brasileirao.web
             services.AddScoped<IJogoRepository, JogoRepository>();
             services.AddScoped<IClubeRepository, ClubeRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
+            //services.AddScoped<ICidadesRepository, CidadeRepository>();
+            services.AddScoped<ICampoRepository, CampoRepository>();
+            //services.AddScoped<IClubeRepository, ClubeRepository>();
+            //services.AddScoped<IClubeRepository, ClubeRepository>();
+            //services.AddScoped<IClubeRepository, ClubeRepository>();
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -73,8 +80,10 @@ namespace Brasileirao.web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                
                 app.UseHsts();
             }
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -83,6 +92,8 @@ namespace Brasileirao.web
 
             app.UseMvc(routes =>
             {
+
+                //routes.MapRoute("areaRout", "{area:exists}/{Controller=Admin}/{Action=Index}{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

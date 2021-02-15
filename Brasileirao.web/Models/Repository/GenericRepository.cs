@@ -9,7 +9,7 @@ namespace Brasileirao.web.Models.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
     {
-        private readonly DataContext _context;        
+        private readonly DataContext _context;
 
         public GenericRepository(DataContext context)
         {

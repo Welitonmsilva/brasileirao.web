@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brasileirao.Common", "Brasileirao.Common\Brasileirao.Common.csproj", "{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{6BAE8ECD-6FFA-4377-9B9B-65635E3086B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{9D5583A4-8FA5-4350-86C9-5B2964BAB086}"
@@ -21,18 +19,6 @@ Global
 		Release|iPhoneSimulator = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Release|iPhone.Build.0 = Release|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{EFB7F21B-F119-4C03-A8DA-B4C88DB2B666}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{95D26DE4-8EC2-408E-99E8-A8E75D44741C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{95D26DE4-8EC2-408E-99E8-A8E75D44741C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95D26DE4-8EC2-408E-99E8-A8E75D44741C}.Debug|iPhone.ActiveCfg = Debug|Any CPU

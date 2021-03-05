@@ -1,16 +1,13 @@
 ﻿
 namespace Brasileirao.web
 {
+    using Brasileirao.web.Context;
     using Brasileirao.web.Controllers;
-    using Brasileirao.web.Data;
-    using Brasileirao.web.Helpers;
-    using Brasileirao.web.Models;
-    using Brasileirao.web.Models.IEntities;
-    using Brasileirao.web.Models.Repository;
+    using Brasileirao.web.Repository;
+    using Brasileirao.Web.Data.Repositories;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -26,37 +23,23 @@ namespace Brasileirao.web
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [System.Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddIdentity<User, IdentityRole>(cfg =>
-            {
-                cfg.User.RequireUniqueEmail = true;
-                cfg.Password.RequireDigit = false;
-                cfg.Password.RequiredUniqueChars = 0;
-                cfg.Password.RequireLowercase = false;
-                cfg.Password.RequireUppercase = false;
-                cfg.Password.RequireNonAlphanumeric = false;
-                cfg.Password.RequiredLength = 6;
-            })
-            .AddEntityFrameworkStores<DataContext>();
-
-            services.AddDbContext<DataContext>(cfg =>// aqui está o datacontext dos dados 
+            services.AddDbContext<Db_Context>(cfg =>// aqui está o datacontext dos dados 
             {
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
             //injetar novos serviço// seedDB tem o ciclo de vida mais curta na aplicação
             //services.AddTransient<SeedDb>();
 
+
             //tem o ciclo de vida durante toda a aplicação
-            services.AddScoped<IJogoRepository, JogoRepository>();
-            services.AddScoped<IClubeRepository, ClubeRepository>();
-            services.AddScoped<IUserHelper, UserHelper>();
-            //services.AddScoped<ICidadesRepository, CidadeRepository>();
-            services.AddScoped<ICampoRepository, CampoRepository>();
-            //services.AddScoped<IClubeRepository, ClubeRepository>();
-            //services.AddScoped<IClubeRepository, ClubeRepository>();
-            //services.AddScoped<IClubeRepository, ClubeRepository>();
+            services.AddTransient<IJogoRepository, JogoRepository>();
+            services.AddTransient<IClassificacaoRepository, ClassificacaoRepository>();
+            //services.AddTransient<IUserHelper, UserHelper>();
+
+
 
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -71,6 +54,7 @@ namespace Brasileirao.web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [System.Obsolete]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -80,7 +64,7 @@ namespace Brasileirao.web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                
+
                 app.UseHsts();
             }
 
@@ -89,14 +73,19 @@ namespace Brasileirao.web
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            app.UseAuthentication(); // Must be after UseRouting()
+            app.UseAuthorization(); // Must be after UseAuthentication()
+            app.UseEndpoints(endpoints =>
             {
-
-                //routes.MapRoute("areaRout", "{area:exists}/{Controller=Admin}/{Action=Index}{id?}");
-                routes.MapRoute(
+                //endpoints.MapControllerRoute(
+                //    name: "AdminArea",
+                //    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }

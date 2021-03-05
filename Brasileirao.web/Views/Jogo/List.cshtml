@@ -1,0 +1,64 @@
+﻿@using Brasileirao.web.Models
+@model IEnumerable<Brasileirao.web.Models.IEntities.Jogo>
+@*<div>Todos as Classificações</div>*@
+
+@foreach (var jogo in Model)
+{
+
+
+
+<table>
+    <br />
+    <br />
+
+
+    <td>
+        <p><img src="@jogo.ImageUrl" /></p>
+    </td>
+
+    <td>
+        <p>Nome:
+
+        <p>@jogo.Name</p>
+    </td>
+    <td>
+        <p>Jornada:
+
+        <p>@jogo.Jornadas</p>
+    </td>
+    <td>
+        <p>Pts:
+        <p>@jogo.Pts</p>
+    </td>
+    <td>
+        <p>V:
+        <p>@jogo.V</p>
+    </td>
+    <td>
+        <p>J:
+        <p>@jogo.J</p>
+    </td>
+    <td>
+        <p>E:
+        <p>@jogo.E</p>
+    </td>
+    <td>
+        <p>D:
+        <p>@jogo.D</p>
+    </td>
+    <td>
+        <p>GM:
+        <p>@jogo.GM</p>
+    </td>
+    <td>
+        <p>GS:
+        <p>@jogo.GS</p>
+    </td>
+</table>
+
+   
+
+
+
+}
+<iframe src="https://www.btfstats.com/widgets/leagues-table.php?name=Brazil%3APaulista&type=0" width="100%" height="900px" scrolling="no" frameBorder=" 0 "> </iframe>

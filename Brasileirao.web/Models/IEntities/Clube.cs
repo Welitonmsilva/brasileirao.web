@@ -1,35 +1,17 @@
-﻿using Brasileirao.web.Models.IEntities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Brasileirao.web.Models
+namespace Brasileirao.web.Models.IEntities
 {
-    public class Clube : IEntity
+    public class Clube
     {
-
-        [Key]
-        public int Id { get; set; }
-
-        public string nome { get; set; }      
-
-        [Display(Name = "Image")]
-        public string ImageUrl { get; set; }
-        public User User { get; set; }
-       
-        public int cidade { get; set; }
-       
-        public string campo { get; set; }
-
-
-
-
-
-
-
-
+        public int clubeId { get; set; }
+        public string Nome { get; set; }
+        public string Estado { get; set; }
+        public string ImageURl { get; set; }
+        public string Campo { get; set; }
+   
     }
 }
